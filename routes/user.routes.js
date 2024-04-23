@@ -31,7 +31,7 @@ userRouter.post('/register', async (req, res) => {
                 res.status(201).send({msg:"New user has benn added successfully"})
             }
         })
-    } catch (error) {
+    } catch (error) { 
         console.error(error);
         res.status(500).send({ message: 'Server Error' });
     }
@@ -64,18 +64,17 @@ userRouter.post('/login', async (req, res) => {
     }
 });
 
-
-userRouter.get('/getProfile',auth,async(req,res) =>{
-     try{
-        const user =req.body
-        res.status(200).send({msg:"details of user is",user})
-
-
-     }catch(error){
+userRouter.get('/getProfile', auth, async (req, res) => {
+    try {
+        const user = req.user; // Retrieve user details from the authenticated request
+       
+        res.status(200).send({ msg: 'User details retrieved successfully', user });
+    } catch (error) { 
         console.log(error);
-        res.status(500).send({msg:"error in getting the profile details",error})
-     }
-})
+        res.status(500).send({ msg: 'Error in getting the profile details', error });
+    }
+});
+
 
 
 // Multer storage configuration for handling file uploads
